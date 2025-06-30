@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { SquarePen } from "lucide-react";
+import { SquarePen, FileText } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -42,6 +42,10 @@ export function WorkbenchMenu({ tutorialsOpen, toggleTutorials }: WorkbenchModeP
         useAnnotations.setState({ isOpen: !isOpen });
     };
 
+    const handleExportReport = () => {
+        router.push('/workbench/summaries');
+    };
+
     return (
         <div className="p-4 border-b flex items-center justify-between">
             <Select value={pathname.split("/").pop()} onValueChange={handleValueChange}>
@@ -51,11 +55,14 @@ export function WorkbenchMenu({ tutorialsOpen, toggleTutorials }: WorkbenchModeP
                 <SelectContent>
                     <SelectItem value="lens">Lens</SelectItem>
                     <SelectItem value="patch">Patch</SelectItem>
-                    <SelectItem value="summaries">Summaries</SelectItem>
                 </SelectContent>
             </Select>
             <div className="flex items-center gap-2">
                 <StatusUpdatesDisplay />
+                <Button variant="outline" size="sm" onClick={handleExportReport}>
+                    <FileText size={16} />
+                    Export Report
+                </Button>
                 <Button variant="outline" size="sm" onClick={toggleAnnotations}>
                     <SquarePen size={16} />
                     Annotate
